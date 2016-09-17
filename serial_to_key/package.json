@@ -1,0 +1,28 @@
+{
+  "name": "serial_to_key",
+  "version": "1.0.0",
+  "description": "Reads serial from the cube.io device and turns it into OS keypresses",
+  "main": "serial_to_key.js",
+  "dependencies": {
+    "robotjs": "^0.4.4",
+    "serialport": "^4.0.1",
+    "jquery": "^3.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/idd-fall16/cube.io"
+  },
+  "keywords": [
+    "cube"
+  ],
+  "author": "Jessica Chang, Jasper O'Leary, Isabel Yang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/idd-fall16/cube.io/issues"
+  },
+  "homepage": "https://github.com/idd-fall16/cube.io"
+}
