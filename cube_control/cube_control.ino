@@ -118,6 +118,7 @@ void loop() {
   change_y = curr_y-prev_y;
   change_x = curr_x-prev_x;
   change_z = curr_z-prev_z;
+  
   prev_y = event.acceleration.y;
   prev_x = event.acceleration.x;
   prev_z = event.acceleration.z;
