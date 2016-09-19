@@ -104,11 +104,11 @@ void loop() {
   }
   else {
       if (event.gyro.y > 8 && event.gyro.y < 9){
-      Serial.println("up");
-      Serial1.println("S");
-    } else if(event.gyro.y < -8 && event.gyro.y > -9){
       Serial.println("down");
       Serial1.println("W");
+    } else if(event.gyro.y < -8 && event.gyro.y > -9){
+      Serial.println("up");
+      Serial1.println("S");
     } else {
 //       Serial.print("Y is at rest");
     }
