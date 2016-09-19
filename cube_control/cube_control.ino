@@ -33,9 +33,9 @@ double change_x_avg;
 double change_y_avg;
 double change_z_avg;
 
-const double JERK_THRESH_LOW = 3.0;
-const double JERK_THRESH_HIGH = 3.0;
-const int TIMEFRAME = 20;
+const double JERK_THRESH_LOW = 6.0;
+const double JERK_THRESH_HIGH = 6.0;
+const int TIMEFRAME = 100;
 const int JOLT_WINDOW_MULTIPLIER = 1;
 unsigned long jolt_counter;
 const int JOLT_COOLDOWN_MAX = 20;
@@ -86,49 +86,44 @@ void loop() {
 
   // Serial.print(" \tchange in x: "); Serial.println(change_x);
 
- if (false) {
+    /* Jerk mode */
+    double norm = sqrt(change_x * change_x + change_y * change_y + change_z * change_z);
 
- }
-  else {
+    if (norm > JERK_THRESH_HIGH && norm > JERK_THRESH_HIGH) {
+      if (event.gyro.x < -3) {
+          Serial.println("J");
+          Serial1.println("J");
+        } else if (event.gyro.x > 3) {
+          Serial.println("L");
+          Serial1.println("L");
+        } else if (event.gyro.y < -3) {
+          Serial.println("K");
+          Serial1.println("K");
+        } else if (event.gyro.y > 3) {
+          Serial.println("I");
+          Serial1.println("I");
+        }
+    } else {
+      /* Plain move */
       if (event.gyro.y > 8 && event.gyro.y < 9){
-      Serial.println("down");
-      Serial1.println("W");
-    } else if(event.gyro.y < -8 && event.gyro.y > -9){
-      Serial.println("up");
-      Serial1.println("S");
-    } else {
-//       Serial.print("Y is at rest");
-    }
-
-    if (event.gyro.x > -9 && event.gyro.x < -8){
-      Serial.println("left");
-      Serial1.println("A");
-    } else if  (event.gyro.x < 9 && event.gyro.x > 8){
-       Serial.println("right");
-       Serial1.println("D");
-    } else {
-//      Serial.print("X is at rest");
-    }
-    // Serial.println("");
-    // Serial1.println("");
-  }
-
-  if (jolt_cooldown-- <= 0) {
-    // Only start averaging if we are off the cooldown
-    change_y = curr_y-prev_y;
-    change_x = curr_x-prev_x;
-    change_z = curr_z-prev_z;
-
-    change_x_avg += change_x;
-    change_y_avg += change_y;
-    change_z_avg += change_z;
-    
-    if (jolt_counter++ % JOLT_WINDOW_MULTIPLIER == 0) {
-      if (check_jerk(&change_x_avg, &change_y_avg, &change_z_avg)) {
-        jolt_cooldown = JOLT_COOLDOWN_MAX;
+        Serial.println("W");
+        Serial1.println("W");
+      } else if(event.gyro.y < -8 && event.gyro.y > -9){
+        Serial.println("S");
+        Serial1.println("S");
+      }
+      if (event.gyro.x > -9 && event.gyro.x < -8){
+        Serial.println("A");
+        Serial1.println("A");
+      } else if  (event.gyro.x < 9 && event.gyro.x > 8){
+         Serial.println("D");
+         Serial1.println("D");
       }
     }
-  }
+
+  change_y = curr_y-prev_y;
+  change_x = curr_x-prev_x;
+  change_z = curr_z-prev_z;
 
   prev_y = event.acceleration.y;
   prev_x = event.acceleration.x;
