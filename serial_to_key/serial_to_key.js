@@ -40,16 +40,16 @@ port.on('data', function(data) {
     }
     /* Cube movements */
     else if (key === 'UP') {
-      Robot.typeString('');
+      Robot.keyTap('up');
     }
     else if (key === 'DOWN') {
-      Robot.typeString('');
+      Robot.keyTap('down');
     }
     else if (key === 'LEFT') {
-      Robot.typeString('');
+      Robot.keyTap('left');
     }
     else if (key === 'RIGHT') {
-      Robot.typeString('');
+      Robot.keyTap('right');
     }
 
 });

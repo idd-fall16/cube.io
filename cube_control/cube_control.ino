@@ -33,8 +33,8 @@ double change_x_avg;
 double change_y_avg;
 double change_z_avg;
 
-const double JERK_THRESH = 2.0;
-const double JERK_THRESH_LOW = 1.0;
+const double JERK_THRESH_LOW = 6.0;
+const double JERK_THRESH_HIGH = 9.0;
 const int TIMEFRAME = 25;
 const int JOLT_WINDOW_MULTIPLIER = 4;
 int jolt_counter;
@@ -83,25 +83,26 @@ void loop() {
 
   // Serial.print(" \tchange in x: "); Serial.println(change_x);
 
-  // if(change_y > JERK_THRESH){                      //change in accel y > 10
-  //   Serial.println("jolt y up");
-  // }
-  // else if (change_y < -JERK_THRESH){             //change in accel y < -10
-  //      Serial.println("jolt y down");
-  //      // Serial1.println("jolt y down");
-  //       Serial1.println("DOWN");
-  // } else if (change_x < -JERK_THRESH){             //change in accel x < -10
-  //     Serial.println("jolt x left");
-  //      //Serial1.println("jolt x left");
-  //      Serial1.println("LEFT");
-  // } else if (change_x > JERK_THRESH){              //change in accel x > 10
-  //     Serial.println("jolt x right");
-  //    // Serial1.println("jolt x left");
-  //     Serial1.println("RIGHT");
-  // }
-  if (false) {
-
-  }
+   if(change_y > JERK_THRESH_LOW){                      //change in accel y > 10
+     Serial.println("jolt y up");
+       Serial1.println("UP");
+   }
+   else if (change_y < -JERK_THRESH_LOW){             //change in accel y < -10
+        Serial.println("jolt y down");
+        // Serial1.println("jolt y down");
+         Serial1.println("DOWN");
+   } else if (change_x < -JERK_THRESH_HIGH){             //change in accel x < -10
+       Serial.println("jolt x left");
+        //Serial1.println("jolt x left");
+        Serial1.println("LEFT");
+   } else if (change_x > JERK_THRESH_HIGH){              //change in accel x > 10
+       Serial.println("jolt x right");
+      // Serial1.println("jolt x left");
+       Serial1.println("RIGHT");
+   }
+//  if (false) {
+//
+//  }
   else {
       if (event.gyro.y > 8 && event.gyro.y < 9){
       Serial.println("down");
@@ -152,7 +153,7 @@ void check_jerk(double *x_avg_jerk, double *y_avg_jerk, double *z_avg_jerk) {
   // Serial.println(x_avg);
   // Serial.println(y_avg);
   // Serial.println(z_avg);
-  if (abs(x_avg) < JERK_THRESH && abs(y_avg) < JERK_THRESH_LOW) {
+  if (abs(x_avg) < JERK_THRESH_HIGH && abs(y_avg) < JERK_THRESH_HIGH) {
     //Nothing
   } else if (abs(x_avg) > abs(y_avg) && abs(x_avg) > abs(z_avg)) {
     if (x_avg >= 0.0) {
